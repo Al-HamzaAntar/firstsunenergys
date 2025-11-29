@@ -12,12 +12,10 @@ services:
       - VITE_SUPABASE_PROJECT_ID=${VITE_SUPABASE_PROJECT_ID}
       - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
       - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro   # اختياري: لو تريد استخدام nginx.conf المحلية
-      - ./ssl:/etc/nginx/ssl:ro               # لو عندك SSL
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+
