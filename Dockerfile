@@ -16,8 +16,9 @@ ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with cache mount
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
 # Copy source code
 COPY . .
