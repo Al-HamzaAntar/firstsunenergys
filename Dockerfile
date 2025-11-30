@@ -1,7 +1,18 @@
+# syntax=docker/dockerfile:1.4
 # Build stage
 FROM node:24-alpine AS builder
 
 WORKDIR /app
+
+# Build arguments for Vite
+ARG VITE_SUPABASE_PROJECT_ID
+ARG VITE_SUPABASE_PUBLISHABLE_KEY
+ARG VITE_SUPABASE_URL
+
+# Set as environment variables for build
+ENV VITE_SUPABASE_PROJECT_ID=$VITE_SUPABASE_PROJECT_ID
+ENV VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 
 # Copy package files
 COPY package*.json ./
