@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.4
 # Build stage
 FROM node:24-alpine AS builder
 
@@ -5,10 +6,10 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY bun.lockb ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with cache
+RUN --mount=type=cache,target=/root/.npm \
+      npm ci --prefer-offline --no-audit
 
 # Copy source code
 COPY . .
@@ -21,9 +22,6 @@ FROM nginx:alpine
 
 # Copy built app from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80
 EXPOSE 80
