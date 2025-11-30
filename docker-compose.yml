@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
+      # - "443:443"
     environment:
       - VITE_SUPABASE_PROJECT_ID=${VITE_SUPABASE_PROJECT_ID}
       - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
@@ -37,7 +38,7 @@ services:
       - webroot:/var/www/html
     depends_on:
       - nginx
-    command: certonly --webroot-path=/var/www/html --email alhasani7710@gmail.com --agree-tos --no-eff-email --non-interactive --keep-until-expiring -d firstsunenergy.com
+    command: certonly --webroot -w /var/www/html --email alhasani7710@gmail.com --agree-tos --no-eff-email --non-interactive --keep-until-expiring -d firstsunenergy.com
 
 networks:
   app-network:
